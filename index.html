@@ -1,0 +1,68 @@
+<html>
+	<head>
+		<title>Batalha naval</title>
+
+		<style>
+			.bloco {
+				display: inline-block;
+				background-color: blue;
+				width: 40px;
+				height: 40px;
+			}
+
+			.atingiu {
+				background-color: red;
+			}
+
+			.errou {
+				background-color: green;
+			}
+		</style>
+	</head>
+	<body>
+		<p>
+			<div class="bloco"></div>
+			<div class="bloco"></div>
+			<div class="bloco"></div>
+			<div class="bloco"></div>
+		</p>
+		<p>
+			<div class="bloco"></div>
+			<div class="bloco"></div>
+			<div class="bloco"></div>
+			<div class="bloco"></div>
+		</p>
+		<p>
+			<div class="bloco"></div>
+			<div class="bloco"></div>
+			<div class="bloco"></div>
+			<div class="bloco"></div>
+		</p>
+		<p>
+			<div data-x="1" data-y="4" class="bloco">1, 4</div>
+			<div data-x="2" data-y="4" class="bloco">2, 4</div>
+			<div data-x="3" data-y="4" class="bloco">3, 4</div>
+			<div data-x="4" data-y="4" class="bloco">4, 4</div>
+		</p>
+
+		<script src="zepto/zepto.js"></script>
+
+		<script>
+			$("body").on("click", "div.bloco", function() {
+				var elemento = $(this);
+
+				var data = {
+					x: elemento.data("x"),
+					y: elemento.data("y")
+				};
+
+				$.post("http://localhost:4848/api/jogar", data, function(resposta) {
+					if (resposta == true)
+						elemento.addClass("atingiu");
+					else
+						elemento.addClass("errou");
+				});
+			});
+		</script>
+	</body>
+</html>
